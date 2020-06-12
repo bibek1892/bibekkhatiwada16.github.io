@@ -1,0 +1,77 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <meta charset="UTF-8">
+        
+        <title>My Portfolio</title>
+        <style>
+
+            .main{
+                text-align: center;
+            }
+            .bottonload{
+                background-color: #4CAF50; 
+                border: 10px; 
+                color:yellow; 
+                padding: 12px 16px; 
+                font-size: 16px 
+            }
+        </style>
+    
+</head>
+
+
+<body>
+
+    <div id="loading">
+        <button class="buttonload">
+            <i class="fa fa-refresh fa-spin"></i>Loading...
+        </button>
+
+    </div>
+    <div class="main" id="mainContainer" hidden>
+        <img
+        height="125"
+        width="125"
+        id="profileImage"
+        >
+        <h2 id="fullName"></h2>
+        <p id="bio">
+        </p >
+        <h5 id="followersInformation"></h5>
+        <p>
+            Check me on <a id="githubLink">Github</a>
+
+
+
+        </p>
+        <p><i>Check me on<a href="https://www.linkedin.com/in/bibek-khatiwada/">LinkedIn</a></i></p>
+
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6667085903212744705" height="200" width="300" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+    </div>
+
+ <script>
+     fetch("https://api.github.com/users/bibekkhatiwada16")
+               .then(response=> response.json())
+     .then(function(data){
+         console.log(data)
+
+         let followersCount=data['followers']
+         let followersInfo=`I have been followed by ${followersCount} numbers of awesome people`
+        document.getElementById('profileImage').src=data['avatar_url']
+        document.getElementById('fullName').textContent=data['name']
+        document.getElementById('bio').textContent=data['bio']
+        document.getElementById('followersInformation').textContent=followersInfo
+        document.getElementById('githubLink').href=data['html_url']
+        document.getElementById('mainContainer').hidden= false 
+        document.getElementById('loading').hidden=true 
+
+     })
+
+
+ </script>
+    
+</body>
+
+</html>
